@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['userid'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +24,40 @@
         .form-container div input[type="text"], .form-container div input[type="email"] {
             flex-grow: 1;
         }
+
+        .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
     </style>
 </head>
 <body>
+    
     <script src="js/validation.js"></script>
     <h1>Student Details</h1>
-    <form action="submit.php" method="post" onsubmit="return validateForm()">
+    <form action="addStudent.php" method="post" onsubmit="return validateForm()">
         <div class="form-container">
             <div>
                 <label for="name">Name:</label>
@@ -58,6 +94,33 @@
         </div>
         <input type="submit" value="Submit">
     </form>
-    
+ 
+<section id="section2">
+    <h1 style="text-align: center;margin: 50px 0;" > Student Table</h1>
+    <div class="container">
+        <table class="styled-table" style="width: 100%; border-collapse: collapse;">
+            <!-- <thead>
+                <tr style="background-color: #f2f2f2;">
+                    <th>Name</th>
+                    <th>Matric No</th>
+                    <th>Current Address</th>
+                    <th>Home Address</th>
+                    <th>Email</th>           
+                    <th>Mobile Phone</th>                  
+                    <th>Home Phone</th>
+                </tr>
+            </thead> -->
+            <tbody id="data-container" style="text-align: center;">
+                <script>
+                    fetch('displayStudents.php')
+                        .then(response => response.text())
+                        .then(html => document.getElementById('data-container').innerHTML = html)
+                        .catch(error => console.error('Error loading the data:', error));
+                </script>
+            </tbody>
+        </table>
+    </div>
+</section>
+
 </body>
 </html>
