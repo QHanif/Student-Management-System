@@ -10,6 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
+
+
+
     $sql = "SELECT id, password FROM Users WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
@@ -20,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user['password'])) {
         // Set the session variable
         $_SESSION['userid'] = $user['id'];
-        header("Location: studentDetailsPage.html");
+        header("Location: studentDetailsPage.php");
         exit;
     } else {
         echo "Invalid email or password";

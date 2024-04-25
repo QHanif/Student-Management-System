@@ -1,15 +1,21 @@
 <?php
 session_start();
 if (!isset($_SESSION['userid'])) {
-    header('Location: login.php');
+    header('Location: loginPage.html');
     exit();
+} else {
+    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    header("Pragma: no-cache"); // HTTP 1.0.
+    header("Expires: 0"); // Proxies.
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
+    <p>Welcome, user <?php echo $_SESSION['userid']; echo "<br>session_id(): ".session_id();?>!</p>
+   
     <title>Student Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .form-container div {
             display: flex;
@@ -51,10 +57,17 @@ if (!isset($_SESSION['userid'])) {
     .styled-table tbody tr:last-of-type {
         border-bottom: 2px solid #009879;
     }
+    .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
-    
+    <form action="logout.php" method="post" class="logout-button">
+        <input type="submit" value="Logout">
+    </form>
     <script src="js/validation.js"></script>
     <h1>Student Details</h1>
     <form action="addStudent.php" method="post" onsubmit="return validateForm()">
