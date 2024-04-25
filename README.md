@@ -11,27 +11,27 @@
 - After the validation in client-side complete, the data will be validated once again by the server through submit.php code which also uses built-in regex function with the similar pattern.
 
 - Then the data will successfully submited to the database adn the page will display "New record created successfully" message. -->
+# Student Management System
 
-## File interaction
+This is a simple student management system built with PHP and MySQL. It allows users to register, log in, and view student details.
 
-The application consists of several files that interact with each other to provide a secure and validated user registration and login system.
+## Files
 
-- `registerPage.html`: This is the registration page where new users can create an account. It contains a form with fields for the user's details, and it uses in-line Regex for initial client-side validation.
-
-- `validation.js`: This JavaScript file is linked to the registration page. It contains additional validation logic that runs when the user submits the registration form.
+- `registerPage.html`: This is the registration page where users can create a new account. It contains a form with fields for the user's email and password, which are validated using Regex when the user submits the registration form.
 
 - `register.php`: This is the server-side script that handles the registration process. It receives the data from the registration form, validates it again using Regex, and then inserts it into the database.
 
 - `loginPage.html`: This is the login page where users can log in to their account. It contains a form with fields for the user's email and password.
 
-- `login.php`: This is the server-side script that handles the login process. It receives the data from the login form, checks it against the database, and starts a session if the user's credentials are correct.
+- `login.php`: This is the server-side script that handles the login process. It receives the data from the login form, checks it against the database, and starts a session if the user's credentials are correct. It also stores the user's email in the session.
 
 - `studentDetailsPage.php`: This is the page that users see after they log in. It is protected by a session-based authentication system, so only logged-in users can access it. It displays the student details from the database.
 
 - `displayStudents.php`: This is the server-side script that fetches the student details from the database and returns them as a PHP array. It is included in `studentDetailsPage.php` to display the student details directly on the page.
 
-- `db_connect.php`: This file contains the code for connecting to the database. It is included in `register.php`, `login.php`, and `displayStudents.php`.
+- `userPage.php`: This is the user profile page where users can view and update their details. It fetches the user's details from the database using their email stored in the session and displays them in a form. If the form is submitted, the user's details are updated in the database.
 
+- `db_connect.php`: This file contains the code for connecting to the database. It is included in `register.php`, `login.php`, `displayStudents.php`, and `userPage.php`.
 
 ## App Navigation
 
@@ -43,7 +43,8 @@ The application consists of several files that interact with each other to provi
 
 - If the registration is successful, the system will redirect the user to the 'loginPage.html'.
 
-- The user enters their credentials, which are then validated by the 'login.php' script. If the credentials are correct, a new session is started for the user.
+- The user enters their credentials, which are then validated by the 'login.php' script. If the credentials are correct, a new session is started for the user and their email is stored in the session.
 
 - After the user successfully logs in, the system will display the 'studentDetailsPage.php'. This page is protected by session-based authentication, so only logged-in users can access it.
 
+- The user can also navigate to their profile page at 'userPage.php' to view and update their details.
