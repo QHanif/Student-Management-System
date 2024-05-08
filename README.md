@@ -59,3 +59,10 @@ This is a simple student management system built with PHP and MySQL. It allows u
 
 - Cross-Site Request Forgery (CSRF) protection has been added to the forms in `registerPage.html`, `loginPage.html`, `userPage.php`, and `editStudentPage.php`. A CSRF token is generated when each form is displayed and stored in the session. When the form is submitted, the token from the form is compared with the one stored in the session in `register.php`, `login.php`, `userPage.php`, `editStudent.php`.
 
+- To prevent Cross-Site Scripting (XSS) attacks, a three-layer validation approach is used:
+
+1. **Client-side validation**: Inline regex is used in the registration form to validate inputs as soon as they are entered. This is the first layer of defense against invalid or malicious inputs.
+
+2. **Client-side validation using `validation.js`**: The inputs are validated again using the same regex rules in `validation.js` before the form is submitted. This serves as a double check to ensure that only valid inputs are submitted.
+
+3. **Server-side validation in form handler**: Before the inputs are sent to the database, they are validated once again in the form handler. This is the final layer of defense to ensure that only valid and safe inputs are stored in the database.

@@ -30,7 +30,6 @@ $sql = "CREATE TABLE IF NOT EXISTS Students (
 if ($conn->query($sql) === FALSE) {
     echo "Error creating table: " . $conn->error;
 }
-
 // Validate and insert data
 $name = $_POST['name'];
 if (!preg_match("/^[A-Za-z\s]+$/", $name)) {
@@ -42,7 +41,32 @@ if (!preg_match("/^\d{5,10}$/", $matricNo)) {
     die("Invalid matric number");
 }
 
-// Repeat for other fields
+$email = $_POST['email'];
+if (!preg_match("/^.+@gmail.com$/", $email)) {
+    die("Invalid email");
+}
+
+$countryCodeMobile = $_POST['countryCodeMobile'];
+if (!preg_match("/^\+\d{1,3}$/", $countryCodeMobile)) {
+    die("Invalid mobile country code");
+}
+
+$mobilePhone = $_POST['mobilePhone'];
+if (!preg_match("/^\d{9,15}$/", $mobilePhone)) {
+    die("Invalid mobile phone number");
+}
+
+$countryCodeHome = $_POST['countryCodeHome'];
+if (!preg_match("/^\+\d{1,3}$/", $countryCodeHome)) {
+    die("Invalid home country code");
+}
+
+$homePhone = $_POST['homePhone'];
+if (!preg_match("/^\d{9,15}$/", $homePhone)) {
+    die("Invalid home phone number");
+}
+
+// Insert data into database
 
 $sql = "INSERT INTO Students (name, matricNo, currentAddress, homeAddress, email, countryCodeMobile, mobilePhone, countryCodeHome, homePhone)
 VALUES ('$name', '$matricNo', '$currentAddress', '$homeAddress', '$email', '$countryCodeMobile', '$mobilePhone', '$countryCodeHome', '$homePhone')";
