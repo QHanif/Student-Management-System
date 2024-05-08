@@ -46,15 +46,6 @@ This is a simple student management system built with PHP and MySQL. It allows u
 
 ## Security Updates
 
-
-- `registerPage.html`, `loginPage.html`, `userPage.php`, and `editStudentPage.php`: These are the pages where a CSRF token is generated for each form.
-
-- `register.php`, `login.php`, `userPage.php`, `editStudent.php`: These are the handler files where the CSRF tokens are verified.
-
-- `db_connect.php`: This file contains the code for connecting to the database. It is included in `register.php`, `login.php`, `displayStudents.php`, and `userPage.php`.
-
-## Security Updates
-
 - Content Security Policy (CSP) has been implemented to only allow scripts to be loaded from the same origin ('self') and from 'https://stackpath.bootstrapcdn.com'. Inline scripts have been moved to external files to comply with this policy.
 
 - Cross-Site Request Forgery (CSRF) protection has been added to the forms in `registerPage.html`, `loginPage.html`, `userPage.php`, and `editStudentPage.php`. A CSRF token is generated when each form is displayed and stored in the session. When the form is submitted, the token from the form is compared with the one stored in the session in `register.php`, `login.php`, `userPage.php`, `editStudent.php`.
