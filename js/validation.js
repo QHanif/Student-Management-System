@@ -4,7 +4,7 @@ var validationRules = {
     matricNo: /^\d{5,10}$/,
     email: /^.+@gmail.com$/,
     countryCode: /^\+\d{1,3}$/,
-    phoneNo: /^\d{10,15}$/
+    phoneNo: /^\d{9,15}$/
 };
 
 function validateForm() {

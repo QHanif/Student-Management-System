@@ -1,5 +1,5 @@
 <?php
-session_start();
+require 'sessionCheck.php';
 require 'db_connect.php';
 
 $sql = "SELECT id, name, matricNo, currentAddress, homeAddress, email, countryCodeMobile, mobilePhone, countryCodeHome, homePhone FROM Students";
@@ -18,19 +18,20 @@ if ($result->num_rows > 0) {
         echo '<td>'.htmlspecialchars($row["email"]).'</td>';   
         echo '<td>'.htmlspecialchars($row["countryCodeMobile"].$row["mobilePhone"]).'</td>';
         echo '<td>'.htmlspecialchars($row["countryCodeHome"].$row["homePhone"]).'</td>';    
+        
         echo "<td>
-                <form action='editStudentPage.php' method='post'>
-                    <input type='hidden' name='id' value='" . $row['id'] . "'>
-                    <input type='submit' value='Edit'>
-                </form>
-              </td>";
+                        <form action='editStudentPage.php' method='post'>
+                                <input type='hidden' name='email' value='" . $row['email'] . "'>
+                                <input type='submit' value='Edit' class='btn btn-primary'>
+                        </form>
+                    </td>";
         echo "<td>
-                <form action='deleteStudent.php' method='post'>
-                    <input type='hidden' name='id' value='" . $row['id'] . "'>
-                    <input type='submit' value='Delete'>
-                </form>
-              </td>";
-        echo '</tr>';
+                        <form action='deleteStudent.php' method='post'>
+                                <input type='hidden' name='email' value='" . $row['email'] . "'>
+                                <input type='submit' value='Delete' class='btn btn-danger'>
+                        </form>
+                    </td>";
+        
     }
 } else {
     echo '<tr><td colspan="9">No data found</td></tr>';

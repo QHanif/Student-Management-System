@@ -4,7 +4,7 @@ require 'sessionCheck.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <p>Welcome, user <?php echo $_SESSION['userid']; echo "<br>session_id(): ".session_id();?>!</p>
+    
    
     <title>Student Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -57,11 +57,11 @@ require 'sessionCheck.php';
     </style>
 </head>
 <body>
-    
+<p>Welcome, <?php echo $_SESSION['role']; echo "<br>session_id(): ".session_id();?>!</p>
     <form action="logout.php" method="post" class="logout-button">
         <input type="submit" value="Logout">
     </form>
-    <script src="js/validation.js"></script>
+    <!-- <script src="js/validation.js"></script>
     <h1>Student Details</h1>
     <form action="addStudent.php" method="post" onsubmit="return validateForm()">
         <div class="form-container">
@@ -99,10 +99,10 @@ require 'sessionCheck.php';
             </div>
         </div>
         <input type="submit" value="Submit">
-    </form>
+    </form> -->
  
 <section id="section2">
-    <h1 style="text-align: center;margin: 50px 0;" > Student Table</h1>
+    <h1 style="text-align: center;margin: 50px 0;" > Student Details Table</h1>
     <div class="container">
         <table class="styled-table" style="width: 100%; border-collapse: collapse;">
             <!-- <thead>
@@ -128,9 +128,15 @@ require 'sessionCheck.php';
     </div>
 </section>
 <?php if (isset($_GET['message'])): ?>
-        <script>
-            alert("<?php echo $_GET['message']; ?>");
-        </script>
-    <?php endif; ?>
+    <div id="message" style="background-color: #dff0d8; color: #3c763d; padding: 10px; margin-bottom: 15px;">
+        <?php echo htmlspecialchars($_GET['message']); ?>
+    </div>
+    <script>
+        setTimeout(function() {
+            document.getElementById('message').style.display = 'none';
+        }, 3000);
+    </script>
+<?php endif; ?>
+
 </body>
 </html>

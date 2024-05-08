@@ -1,3 +1,5 @@
+<!-- code ini tidak lagi digunakan -->
+
 <?php
 
 
@@ -46,7 +48,12 @@ $sql = "INSERT INTO Students (name, matricNo, currentAddress, homeAddress, email
 VALUES ('$name', '$matricNo', '$currentAddress', '$homeAddress', '$email', '$countryCodeMobile', '$mobilePhone', '$countryCodeHome', '$homePhone')";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: studentDetailsPage.php?message=New Record created successfully");
+    if ($user['role'] == 'admin') {
+        header("Location: studentDetailsPage.php?message=New Record created successfully");
+    } else {
+        header("Location: loginPage.php");
+    }
+    // header("Location: studentDetailsPage.php?message=New Record created successfully");
 } else {
     exit( "Error: " . $sql . "<br>" . $conn->error);
 }
