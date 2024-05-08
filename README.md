@@ -1,4 +1,4 @@
-# INFO4345 WEB APPLICATION SECURITY | Class Assignment - Input Validation (Client & Server Side)
+# INFO4345 WEB APPLICATION SECURITY | Class Assignment - Student Management System (Client & Server Side)
  
  This is a simple input validation project that prompt user details then validates the input before submitting it to the database. For client-side, HTML and JavaScript is used for the input validation to get multi layer of validations. Then in server-side, another layer of validation implemented in the php code before the data submited to the database. 
 <!-- 
