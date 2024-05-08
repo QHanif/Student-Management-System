@@ -1,5 +1,9 @@
 <?php
 require 'sessionCheck.php';
+if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    // CSRF token does not match, reject the form submission
+    die('Invalid CSRF token');
+}
 require 'db_connect.php';
 
 

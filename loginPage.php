@@ -1,3 +1,9 @@
+<?php
+session_start();
+header("Content-Security-Policy: default-src 'self' https://stackpath.bootstrapcdn.com");
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +24,7 @@
             <div class="col-4">
                 <h1 class="text-center mb-4">Login</h1>
                 <form action="login.php" method="post">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="form-group mt-3">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" class="form-control" required>
@@ -31,7 +38,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            Don't have an account? <a href="registerPage.html" style="margin-left: 10px;">Register here</a>
+            Don't have an account? <a href="registerPage.php" style="margin-left: 10px;">Register here</a>
         </div>
     </div>
 </body>

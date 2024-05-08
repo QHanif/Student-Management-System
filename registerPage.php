@@ -1,5 +1,13 @@
 
+<?php
+session_start();
+header("Content-Security-Policy: default-src 'self' https://stackpath.bootstrapcdn.com");
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+?>
+<!DOCTYPE html>
 
+<html>
+<head>
 <title>Registration Form</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -8,7 +16,9 @@
     <div class="container h-100">
         
             <div class="row justify-content-center">
+                  <script src="js/validation.js"></script>
                 <form action="register.php" method="post" onsubmit="return validateForm()" class="col-4">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="form-group mt-3">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" class="form-control" required>
@@ -58,7 +68,7 @@
                         </div>
                     </div>
                     <input type="submit" value="Register" class="btn btn-primary">
-                    <p class="mt-3">Already have an account? <a href="loginPage.html" style="margin-left: 10px;">Log in</a></p>
+                    <p class="mt-3">Already have an account? <a href="loginPage.php" style="margin-left: 10px;">Log in</a></p>
                 </form>
              
                 

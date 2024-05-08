@@ -1,6 +1,8 @@
 <?php
 
 require 'sessionCheck.php';
+header("Content-Security-Policy: default-src 'self' https://stackpath.bootstrapcdn.com");
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 require 'db_connect.php';
 
 // Check if the "id" parameter is present in the URL
@@ -20,13 +22,14 @@ $data = $result->fetch_assoc();
 <html>
 <head>
     <title>Edit Student</title>
-    <!-- Include Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
         <h1>Edit Student</h1>
         <form action="editStudent.php" method="post" onsubmit="return validateForm()">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
             <div class="form-group">
                 <label for="name">Name:</label>

@@ -18,7 +18,7 @@ This is a simple student management system built with PHP and MySQL. It allows u
 
 - `login.php`: The server-side script that handles the login process. It receives the data from the login form, checks it against the database, and starts a session if the user's credentials are correct. It also stores the user's email in the session.
 
-- `userPage.php`: The user profile page where users can view and update their details. It fetches the user's details from the database using their email stored in the session and displays them in a form. If the form is submitted, the user's details are updated in the database.
+- `userPage.php`: The user profile page where users can view and update their details. It fetches the user's details from the database using their email stored in the session and displays them in a form. If the form is submitted, the user's details are updated in the database. This page now includes CSRF protection by generating a CSRF token and comparing it with the one stored in the session.
 
 - `studentDetailsPage.php`: The page that admins see after they log in. It is protected by a session-based authentication system, so only logged-in admins can access it. It displays the student details from the database.
 
@@ -43,3 +43,19 @@ This is a simple student management system built with PHP and MySQL. It allows u
 - The user enters their credentials, which are then validated by the 'login.php' script. If the credentials are correct, a new session is started for the user and their email is stored in the session.
 
 - After the user successfully logs in, the system will display the 'userPage.php' for users and 'studentDetailsPage.php' for admins. These pages are protected by session-based authentication, so only logged-in users and admins can access them.
+
+## Security Updates
+
+
+- `registerPage.html`, `loginPage.html`, `userPage.php`, and `editStudentPage.php`: These are the pages where a CSRF token is generated for each form.
+
+- `register.php`, `login.php`, `userPage.php`, `editStudent.php`: These are the handler files where the CSRF tokens are verified.
+
+- `db_connect.php`: This file contains the code for connecting to the database. It is included in `register.php`, `login.php`, `displayStudents.php`, and `userPage.php`.
+
+## Security Updates
+
+- Content Security Policy (CSP) has been implemented to only allow scripts to be loaded from the same origin ('self') and from 'https://stackpath.bootstrapcdn.com'. Inline scripts have been moved to external files to comply with this policy.
+
+- Cross-Site Request Forgery (CSRF) protection has been added to the forms in `registerPage.html`, `loginPage.html`, `userPage.php`, and `editStudentPage.php`. A CSRF token is generated when each form is displayed and stored in the session. When the form is submitted, the token from the form is compared with the one stored in the session in `register.php`, `login.php`, `userPage.php`, `editStudent.php`.
+

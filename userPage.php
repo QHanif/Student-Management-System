@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,12 @@
 <body>
 
 <?php
+
 require 'sessionCheck.php';
+header("Content-Security-Policy: default-src 'self' https://stackpath.bootstrapcdn.com; script-src 'self' 'unsafe-inline'");
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 require 'db_connect.php';
 
 // Check if the user is logged in
@@ -22,6 +29,9 @@ if (!isset($_SESSION['useremail'])) {
 
 // If the form is submitted, update the user's details
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Invalid CSRF token');
+    }
     $name = $_POST['name'];
     $matricNo = $_POST['matricNo'];
     $currentAddress = $_POST['currentAddress'];
@@ -71,7 +81,8 @@ $conn->close();
             <div class="col-md-12">
                 <h4 class="mb-3">User Details</h4>
                 <form action="userPage.php" method="post" class="needs-validation" novalidate>
-                    <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="email" value="<?php echo $data['email']; ?>">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">Name:</label>

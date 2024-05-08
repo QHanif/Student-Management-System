@@ -1,4 +1,9 @@
 <?php
+session_start();
+if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    // CSRF token does not match, reject the form submission
+    die('Invalid CSRF token');
+}
 require 'db_connect.php';
 
 
@@ -53,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($result->num_rows > 0) {
-        echo "<script type='text/javascript'>alert('Email is already in use'); window.location.href = 'registerPage.html';</script>";
+        echo "<script type='text/javascript'>alert('Email is already in use'); window.location.href = 'registerPage.php';</script>";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -61,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $email, $hashed_password, $role);
         if ($stmt->execute() === TRUE) {
-            echo "<script type='text/javascript'>alert('New user registered successfully'); window.location.href = 'loginPage.html';</script>";
+            echo "<script type='text/javascript'>alert('New user registered successfully'); window.location.href = 'loginPage.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -72,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
         if ($stmt->execute() === TRUE) {
-            echo "<script type='text/javascript'>alert('New user registered successfully'); window.location.href = 'loginPage.html';</script>";
+            echo "<script type='text/javascript'>alert('New user registered successfully'); window.location.href = 'loginPage.php';</script>";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
