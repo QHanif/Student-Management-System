@@ -35,7 +35,7 @@ This is a simple student management system built with PHP and MySQL. It allows u
 
 ## App Navigation
 
-- User will first register a new account at 'registerPage.html'. The data entered in the form is validated using inline Regex for initial client-side validation. 
+- Users will first register a new account at 'registerPage.html'. The data entered in the form is validated using inline Regex for initial client-side validation. 
 
 - After the form is submitted, 'validation.js' validates the input again using built-in regex functions for additional client-side validation.
 
