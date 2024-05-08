@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     } else {
        
-        echo "<script type='text/javascript'>alert('Invalid email or password'); window.location.href = 'loginPage.html';</script>";
+        echo "<script type='text/javascript'>alert('Invalid email or password'); window.location.href = 'loginPage.php';</script>";
     }
 }
 

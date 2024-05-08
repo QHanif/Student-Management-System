@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "Student Management System";
+$password = "wasasg";
 $dbname = "inputval";
 
 // Create connection
